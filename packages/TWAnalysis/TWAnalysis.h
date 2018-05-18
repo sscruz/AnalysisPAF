@@ -37,6 +37,9 @@ class TWAnalysis : public PAFChainItemSelector{
     std::vector<Jet> mcJets  ;
     std::vector<Jet> vetoJets;
 
+    std::vector<Jet> SergioJets;
+    std::vector<Lepton> SergioLeps;
+    
     TTree* fTree;
     TTree* fMini;
     TTree* fMini1j1t;
@@ -54,7 +57,10 @@ class TWAnalysis : public PAFChainItemSelector{
     void GetLeptonVariables(std::vector<Lepton> selLeptons, std::vector<Lepton> VetoLeptons);
     void GetJetVariables(std::vector<Jet> selJets, std::vector<Jet> cleanedJets15, Float_t ptCut = 30);
     void GetGenJetVariables(std::vector<Jet> genJets, std::vector<Jet> mcJets);
+    void GetGenLepVariables();
+    float getTopPtRW();
     void GetMET();
+    void GetGenMET();
     Int_t nFiduJets; Int_t nFidubJets; 
 
     Float_t TrigSF;
@@ -63,6 +69,7 @@ class TWAnalysis : public PAFChainItemSelector{
     Float_t PUSF_Up;
     Float_t PUSF_Down;
     Int_t   gChannel;
+    TString gPar;
     Bool_t  passMETfilters;
     Bool_t  passTrigger;
     Bool_t  isSS;
@@ -129,6 +136,12 @@ class TWAnalysis : public PAFChainItemSelector{
     Float_t TMET_PhiJESUp;  // MET phi
     Float_t TMET_PhiJESDown;  // MET phi
     Float_t TMET_PhiJERUp;  // MET phi
+    Float_t TLeadingJetPt    ;
+    Float_t TLeadingJetEta   ;
+    Float_t TLeadingJetCSV   ;
+    Float_t TSubLeadingJetPt ;
+    Float_t TSubLeadingJetEta;
+    Float_t TSubLeadingJetCSV;
 
     Int_t   TNVetoLeps;
     Int_t   TNSelLeps;
@@ -169,6 +182,116 @@ class TWAnalysis : public PAFChainItemSelector{
     Float_t TDR_L1L2_J1J2   ;
     Float_t TDR_L1L2_J1J2MET;
 
+    // ADDED:
+    
+    Float_t TM_LeadingB       ;
+    Float_t TM_SubLeadingB    ;
+    Float_t TE_LLB            ;
+    Float_t TMT_LLMETB        ;
+    Float_t TM_LLB            ;
+    Float_t TLeadingJetE       ;
+    Float_t TLeadingJetPhi     ;
+    Float_t TLeadingLepPhi     ;
+    Float_t TLeadingLepE       ;
+    Float_t TSubLeadingLepE    ;
+    Float_t TSubLeadingLepPhi  ;
+    
+    Float_t TM_LeadingBJESUp       ;
+    Float_t TM_SubLeadingBJESUp    ;
+    Float_t TE_LLBJESUp            ;
+    Float_t TMT_LLMETBJESUp        ;
+    Float_t TM_LLBJESUp            ;
+    Float_t TLeadingJetPtJESUp    ;
+    Float_t TLeadingJetEJESUp       ;
+    Float_t TLeadingJetPhiJESUp     ;
+    Float_t TLeadingJetEtaJESUp;
+    Float_t TLeadingLepPtJESUp;
+    Float_t TLeadingLepEJESUp;
+    Float_t TLeadingLepPhiJESUp;
+    Float_t TLeadingLepEtaJESUp;
+    Float_t TSubLeadingLepPtJESUp;
+    Float_t TSubLeadingLepEJESUp;
+    Float_t TSubLeadingLepPhiJESUp;
+    Float_t TSubLeadingLepEtaJESUp;
+    
+    Float_t TM_LeadingBJESDown       ;
+    Float_t TM_SubLeadingBJESDown    ;
+    Float_t TE_LLBJESDown            ;
+    Float_t TMT_LLMETBJESDown        ;
+    Float_t TM_LLBJESDown            ;
+    Float_t TLeadingJetPtJESDown    ;
+    Float_t TLeadingJetEJESDown       ;
+    Float_t TLeadingJetPhiJESDown     ;
+    Float_t TLeadingJetEtaJESDown   ;
+    Float_t TLeadingLepPtJESDown;
+    Float_t TLeadingLepEJESDown;
+    Float_t TLeadingLepPhiJESDown;
+    Float_t TLeadingLepEtaJESDown;
+    Float_t TSubLeadingLepPtJESDown;
+    Float_t TSubLeadingLepEJESDown;
+    Float_t TSubLeadingLepPhiJESDown;
+    Float_t TSubLeadingLepEtaJESDown;
+    
+    Float_t TM_LeadingBJERUp       ;
+    Float_t TM_SubLeadingBJERUp    ;
+    Float_t TE_LLBJERUp            ;
+    Float_t TMT_LLMETBJERUp        ;
+    Float_t TM_LLBJERUp            ;
+    Float_t TLeadingJetPtJERUp    ;
+    Float_t TLeadingJetEJERUp       ;
+    Float_t TLeadingJetPhiJERUp     ;
+    Float_t TLeadingJetEtaJERUp   ;
+    Float_t TLeadingLepPtJERUp;
+    Float_t TLeadingLepEJERUp;
+    Float_t TLeadingLepPhiJERUp;
+    Float_t TLeadingLepEtaJERUp;
+    Float_t TSubLeadingLepPtJERUp;
+    Float_t TSubLeadingLepEJERUp;
+    Float_t TSubLeadingLepPhiJERUp;
+    Float_t TSubLeadingLepEtaJERUp;
+    
+    Float_t TGenLeadingJetPt   ;
+    Float_t TGenLeadingJetE    ;
+    Float_t TGenLeadingJetPhi  ;
+    Float_t TGenLeadingJetEta  ;
+    Float_t TGenLeadingLepPt   ;
+    Float_t TGenLeadingLepE    ;
+    Float_t TGenLeadingLepPhi  ;
+    Float_t TGenLeadingLepEta  ;
+    Float_t TGenSubLeadingLepPt ;
+    Float_t TGenSubLeadingLepE  ;
+    Float_t TGenSubLeadingLepPhi;
+    Float_t TGenSubLeadingLepEta;
+    Float_t TGenM_LeadingB    ;
+    Float_t TGenM_SubLeadingB ;
+    Float_t TGenE_LLB         ;
+    Float_t TGenMT_LLMETB     ;
+    Float_t TGenM_LLB         ;
+    Float_t TGenDilepPt        ;
+    Float_t TGenDilepJetPt     ;
+    Float_t TGenDilepMETJetPt  ;
+    Float_t TGenHTtot          ;
+    Float_t TGenMET_Phi        ;
+    Int_t GenChannel           ;
+    Bool_t TGenIsSS;
+    Bool_t Tpassgen            ;
+    Bool_t Tpassreco           ;
+    Bool_t TpassrecoJESUp           ;
+    Bool_t TpassrecoJESDown           ;
+    Bool_t TpassrecoJERUp           ;
+    Float_t TWeight_normal     ;
+    Int_t nSergioJets;
+    Int_t nSergiobJets;
+    Int_t nSergioLeps;
+    Int_t nSergioGenJets;
+    Int_t nSergioGenLeps;
+    Int_t nSergioGenMET;
+    Jet tJ;
+    TLorentzVector tpJ;
+    Lepton tL;
+    TLorentzVector tpL;
+    TLorentzVector SergioMET;
+    TLorentzVector tMET;
 
     // For systematics...
     Int_t   TNJetsJESUp;
@@ -203,11 +326,19 @@ class TWAnalysis : public PAFChainItemSelector{
     Float_t  TWeight_PUDown;
     Float_t  TWeight_PUUp;
     Float_t  TWeight_FSDown;
+
+    Float_t   TWeight_upFrag       ;    
+    Float_t   TWeight_downFrag     ;	
+    Float_t   TWeight_PetersonFrag ;
+    Float_t   TWeight_semilepbrUp  ;	
+    Float_t   TWeight_semilepbrDown;
+
     
     Float_t  TWeight_MistagUp  ;
     Float_t  TWeight_MistagDown;
     Float_t  TWeight_BtagUp    ;
     Float_t  TWeight_BtagDown  ;
+    Float_t  TWeight_TopPt  ;
     
     Float_t   LeadingLeptPt_   ;
     Float_t   LeadingLeptEta_  ;    
@@ -238,8 +369,8 @@ class TWAnalysis : public PAFChainItemSelector{
     Float_t  TJetLooseCentralpt, TJetLooseCentralptJESUp    , TJetLooseCentralptJESDown    , TJetLooseCentralptJERUp    ;
     Float_t  C_jll          , C_jllJESUp          , C_jllJESDown          , C_jllJERUp          ;
     Float_t  DilepJetPt     , DilepJetPtJESUp     , DilepJetPtJESDown     , DilepJetPtJERUp     ;
-    Float_t  TBDTada        , TBDTadaJESUp        , TBDTadaJESDown        , TBDTadaJERUp        ;
-    Float_t  TBDTgrad       , TBDTgradJESUp       , TBDTgradJESDown       , TBDTgradJERUp       ;
+    /* Float_t  TBDTada        , TBDTadaJESUp        , TBDTadaJESDown        , TBDTadaJERUp        ; */
+    /* Float_t  TBDTgrad       , TBDTgradJESUp       , TBDTgradJESDown       , TBDTgradJERUp       ; */
     Float_t  TBDT       , TBDTJESUp       , TBDTJESDown       , TBDTJERUp       ;
     Float_t  TBDT2j1t       , TBDT2j1tJESUp       , TBDT2j1tJESDown       , TBDT2j1tJERUp       ;
     Float_t TBDT2j1t_DR, TBDT2j1t_ot;
@@ -308,7 +439,7 @@ class TWAnalysis : public PAFChainItemSelector{
   TH1F*  fHSSyields[nChannels][nSysts];
 
   protected:
-
+  
     Bool_t  gIsData;
     Bool_t  gDoSyst;
     Int_t   gSelection;
@@ -316,15 +447,19 @@ class TWAnalysis : public PAFChainItemSelector{
     Bool_t  gIsTTbar;
     Bool_t  gIsTW;
     Bool_t  gIsLHE;
+    Bool_t  gIsFSRUp;
+    Bool_t  gIsFSRDown;
+
+    
     void    setTWBDT();
-    TMVA::Reader* BDTada;
-    TMVA::Reader* BDTada_JESUp;
-    TMVA::Reader* BDTada_JESDown;
-    TMVA::Reader* BDTada_JER;
-    TMVA::Reader* BDTgrad;
-    TMVA::Reader* BDTgrad_JESUp;
-    TMVA::Reader* BDTgrad_JESDown;
-    TMVA::Reader* BDTgrad_JER;
+    /* TMVA::Reader* BDTada; */
+    /* TMVA::Reader* BDTada_JESUp; */
+    /* TMVA::Reader* BDTada_JESDown; */
+    /* TMVA::Reader* BDTada_JER; */
+    /* TMVA::Reader* BDTgrad; */
+    /* TMVA::Reader* BDTgrad_JESUp; */
+    /* TMVA::Reader* BDTgrad_JESDown; */
+    /* TMVA::Reader* BDTgrad_JER; */
     TMVA::Reader* BDT;
     TMVA::Reader* BDT_JESUp;
     TMVA::Reader* BDT_JESDown;
